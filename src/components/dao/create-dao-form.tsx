@@ -99,7 +99,7 @@ export default function CreateDaoForm() {
 
             // We can't initialize during deploy, so we'll need to make a separate call.
             // For now, we'll just redirect. A more robust solution would handle the init call.
-            router.push(`/?dao=${newDao.contractAddress}`);
+            router.push(`/dashboard?dao=${newDao.contractAddress}`);
         },
         onCancel: () => {
             toast({

@@ -25,14 +25,14 @@ export default function DaoSelector({ knownDaos }: DaoSelectorProps) {
   const handleViewDao = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (address) {
-      router.push(`/?dao=${address}`);
+      router.push(`/dashboard?dao=${address}`);
     }
   };
 
   const handleSelectDao = (value: string) => {
     if (value) {
       setAddress(value);
-      router.push(`/?dao=${value}`);
+      router.push(`/dashboard?dao=${value}`);
     }
   }
 
