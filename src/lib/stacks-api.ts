@@ -132,8 +132,8 @@ export async function fetchAccountBalance(
   const principal = address.includes('.') ? address.split('.')[0] : address;
 
   const config = getNetworkConfig(network);
-  // Use the V2 endpoint which works better with contract principals
-  const url = `${config.url}/extended/v2/addresses/${principal}/balances`;
+  // Use the V1 endpoint for address balances (v2 doesn't exist!)
+  const url = `${config.url}/extended/v1/address/${principal}/balances`;
 
   const response = await fetchWithRetry(url);
 

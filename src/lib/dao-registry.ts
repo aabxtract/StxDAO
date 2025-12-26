@@ -14,17 +14,20 @@ import type { Network } from './stacks-types';
 export const KNOWN_DAOS: KnownDao[] = [
   {
     name: 'Stacking DAO',
-    contractAddress: 'SP4SZE494VC2YC5JYG7AYFQ44F5Q4PYV7DVMDPBG.stacking-dao-core-v6',
+    // Using the core deployer address as the DAO treasury
+    contractAddress: 'SP4SZE494VC2YC5JYG7AYFQ44F5Q4PYV7DVMDPBG',
     network: 'mainnet',
   },
   {
     name: 'Arkadiko DAO',
-    contractAddress: 'SP2C2YFP12AJZB4MABJBAJ55XECVS7E4PMMZ89YZR.arkadiko-dao',
+    // Using the DAO deployer/treasury address
+    contractAddress: 'SP2C2YFP12AJZB4MABJBAJ55XECVS7E4PMMZ89YZR',
     network: 'mainnet',
   },
   {
     name: 'Stackswap DAO',
-    contractAddress: 'SP1Z92MPDQEWZXW36VX71Q25HKF5K2EPCJ304F275.stackswap-dao-v5k',
+    // Using the principal address for the DAO
+    contractAddress: 'SP1Z92MPDQEWZXW36VX71Q25HKF5K2EPCJ304F275',
     network: 'mainnet',
   },
   // Add more known DAOs as discovered
