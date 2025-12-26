@@ -9,6 +9,11 @@ export interface DaoTreasury {
   lastUpdatedBlock: number;
 }
 
+export interface DaoTreasuryHistoryPoint {
+  date: string;
+  balance: number;
+}
+
 export type ProposalStatus = 'Active' | 'Passed' | 'Rejected';
 
 export interface Proposal {

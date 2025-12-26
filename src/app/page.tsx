@@ -2,13 +2,14 @@ import { Suspense } from 'react';
 import Link from 'next/link';
 import Header from '@/components/layout/header';
 import DaoSelector from '@/components/dao/dao-selector';
-import { getKnownDaos, getDaoTreasury, getDaoProposals } from '@/lib/dao';
+import { getKnownDaos, getDaoTreasury, getDaoProposals, getDaoTreasuryHistory } from '@/lib/dao';
 import TreasuryOverview from '@/components/dao/treasury-overview';
 import ProposalsList from '@/components/dao/proposals-list';
 import EmptyState from '@/components/dao/empty-state';
 import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
+import TreasuryChart from '@/components/dao/treasury-chart';
 
 export default async function Home({ searchParams }: { searchParams?: { dao?: string } }) {
   const knownDaos = await getKnownDaos();
@@ -41,6 +42,7 @@ export default async function Home({ searchParams }: { searchParams?: { dao?: st
 async function DaoData({ daoAddress }: { daoAddress: string }) {
   const treasury = await getDaoTreasury(daoAddress);
   const proposals = await getDaoProposals(daoAddress);
+  const history = await getDaoTreasuryHistory(daoAddress);
 
   if (!treasury) {
     return <Card className="border-destructive"><CardContent className="p-6"><p className="text-center text-destructive">DAO not found for address: {daoAddress}</p></CardContent></Card>
@@ -50,6 +52,7 @@ async function DaoData({ daoAddress }: { daoAddress: string }) {
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
       <div className="lg:col-span-1 flex flex-col gap-8">
         <TreasuryOverview treasury={treasury} />
+        {history.length > 0 && <TreasuryChart data={history} />}
       </div>
       <div className="lg:col-span-2">
         <ProposalsList proposals={proposals} daoAddress={daoAddress} />
@@ -67,6 +70,12 @@ function DaoDataSkeleton() {
             <Skeleton className="h-8 w-3/4" />
             <Skeleton className="h-12 w-full" />
             <Skeleton className="h-12 w-full" />
+          </CardContent>
+        </Card>
+         <Card>
+          <CardContent className="p-6 space-y-4">
+            <Skeleton className="h-8 w-1/2 mb-4" />
+            <Skeleton className="h-48 w-full" />
           </CardContent>
         </Card>
       </div>

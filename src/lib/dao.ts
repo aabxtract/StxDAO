@@ -1,4 +1,4 @@
-import type { KnownDao, DaoTreasury, Proposal, ProposalDetails } from './types';
+import type { KnownDao, DaoTreasury, Proposal, ProposalDetails, DaoTreasuryHistoryPoint } from './types';
 
 const MOCK_DAOS: KnownDao[] = [
   { name: 'Bitcoin Devs', contractAddress: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3K0702X2BGO5.bitcoin-devs-dao' },
@@ -22,6 +22,33 @@ const MOCK_TREASURIES: Record<string, DaoTreasury> = {
     stxBalance: 250000.00,
     lastUpdatedBlock: 145228,
   },
+};
+
+const MOCK_TREASURY_HISTORY: Record<string, DaoTreasuryHistoryPoint[]> = {
+  'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3K0702X2BGO5.bitcoin-devs-dao': [
+    { date: 'Jan 24', balance: 850000 },
+    { date: 'Feb 24', balance: 920000 },
+    { date: 'Mar 24', balance: 900000 },
+    { date: 'Apr 24', balance: 1100000 },
+    { date: 'May 24', balance: 1150000 },
+    { date: 'Jun 24', balance: 1250345.67 },
+  ],
+  'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3K0702X2BGO5.stacks-foundation-dao': [
+    { date: 'Jan 24', balance: 5200000 },
+    { date: 'Feb 24', balance: 5300000 },
+    { date: 'Mar 24', balance: 5500000 },
+    { date: 'Apr 24', balance: 5450000 },
+    { date: 'May 24', balance: 5700000 },
+    { date: 'Jun 24', balance: 5890112.11 },
+  ],
+  'SP8A9HZ3PKST0S42VM9523Z9NV42SZ026V4K39WH.citycoins-dao': [
+    { date: 'Jan 24', balance: 250000 },
+    { date: 'Feb 24', balance: 250000 },
+    { date: 'Mar 24', balance: 250000 },
+    { date: 'Apr 24', balance: 250000 },
+    { date: 'May 24', balance: 250000 },
+    { date: 'Jun 24', balance: 250000 },
+  ],
 };
 
 const MOCK_PROPOSALS: Record<string, Proposal[]> = {
@@ -100,6 +127,11 @@ export async function getKnownDaos(): Promise<KnownDao[]> {
 export async function getDaoTreasury(contractAddress: string): Promise<DaoTreasury | undefined> {
   await simulateDelay();
   return MOCK_TREASURIES[contractAddress];
+}
+
+export async function getDaoTreasuryHistory(contractAddress: string): Promise<DaoTreasuryHistoryPoint[]> {
+  await simulateDelay();
+  return MOCK_TREASURY_HISTORY[contractAddress] || [];
 }
 
 export async function getDaoProposals(contractAddress: string): Promise<Proposal[]> {
